@@ -16,14 +16,13 @@
  */
 package org.apache.dubbo.demo.provider;
 
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Provider {
 
     /**
-     * To get ipv6 address to work, add
-     * System.setProperty("java.net.preferIPv6Addresses", "true");
-     * before running your application.
+     * 生产者
      */
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});

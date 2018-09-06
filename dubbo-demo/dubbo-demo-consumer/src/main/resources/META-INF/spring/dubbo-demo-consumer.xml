@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-    <!-- consumer's application name, used for tracing dependency relationship (not a matching criterion),
-    don't set it same as provider -->
+    <!-- 当前项目在整个分布式架构里面的唯一名称，计算机依赖关系的标签 -->
     <dubbo:application name="demo-consumer"/>
 
-    <!-- use multicast registry center to discover service -->
-    <dubbo:registry address="multicast://224.5.6.7:1234"/>
+    <!-- dubbo这个服务所要暴露的服务地址对应的注册中心,这里用的是zookeeper作为注册中心-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"/>
 
-    <!-- generate proxy for the remote service, then demoService can be used in the same way as the
-    local regular interface -->
+    <!-- 启动的时候去zookeeper上面找到生产者在上面注册接口的url值,生成一个远程服务的调用代理，
+    check默认是true，启动的时候会去检查提供方是否已经启动了，不然会报错，为false的时候不去检查,
+    当服务出现循环依赖的时候，cheack设置为false-->
     <dubbo:reference id="demoService" check="false" interface="org.apache.dubbo.demo.DemoService"/>
 
 </beans>

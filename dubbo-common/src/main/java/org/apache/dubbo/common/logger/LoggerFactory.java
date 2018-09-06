@@ -41,7 +41,7 @@ public class LoggerFactory {
     static {
         String logger = System.getProperty("dubbo.application.logger");
         if ("slf4j".equals(logger)) {
-            setLoggerAdapter(new Slf4jLoggerAdapter());
+                setLoggerAdapter(new Slf4jLoggerAdapter());
         } else if ("jcl".equals(logger)) {
             setLoggerAdapter(new JclLoggerAdapter());
         } else if ("log4j".equals(logger)) {
