@@ -25,6 +25,7 @@ public class Consumer {
      * To get ipv6 address to work, add
      * System.setProperty("java.net.preferIPv6Addresses", "true");
      * before running your application.
+     * 如果使用Intellij Idea 请加上-Djava.net.preferIPv4Stack=true
      */
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-consumer.xml"});

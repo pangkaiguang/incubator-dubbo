@@ -23,6 +23,8 @@ public class Provider {
 
     /**
      * 生产者
+     * http://dubbo.apache.org/zh-cn/docs官网
+     * 如果使用Intellij Idea 请加上-Djava.net.preferIPv4Stack=true
      */
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});
