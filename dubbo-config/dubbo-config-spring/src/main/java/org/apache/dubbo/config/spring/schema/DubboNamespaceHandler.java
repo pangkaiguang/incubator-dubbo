@@ -32,10 +32,14 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * DubboNamespaceHandler
  *
  * @export
+ * dubbo入口类
+ * E:\code\incubator-dubbo\dubbo-config\dubbo-config-spring\src\main\resources\META-INF\spring.handlers
+ * DubboNamespaceHandler继承了NamespaceHandlerSupport。因此不需要实现所有的解析工作，只要将自定义schema中的元素解析器注册进来就可以
  */
 public class DubboNamespaceHandler extends NamespaceHandlerSupport {
 
     static {
+        //去classpath下检查是否有其他的同名class，否则会打错误日志
         Version.checkDuplicate(DubboNamespaceHandler.class);
     }
 

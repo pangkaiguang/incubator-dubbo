@@ -39,6 +39,7 @@ public interface Cluster {
      * @param directory
      * @return cluster invoker
      * @throws RpcException
+     * Cluster 将 Directory 中的多个 Invoker 伪装成一个 Invoker，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个。
      */
     @Adaptive
     <T> Invoker<T> join(Directory<T> directory) throws RpcException;
