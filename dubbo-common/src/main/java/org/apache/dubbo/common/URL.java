@@ -37,55 +37,33 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * URL - Uniform Resource Locator (Immutable, ThreadSafe)
- * <p>
- * url example:
- * <ul>
- * <li>http://www.facebook.com/friends?param1=value1&amp;param2=value2
- * <li>http://username:password@10.20.130.230:8080/list?version=1.0.0
- * <li>ftp://username:password@192.168.1.7:21/1/read.txt
- * <li>registry://192.168.1.7:9090/org.apache.dubbo.service1?param1=value1&amp;param2=value2
- * </ul>
- * <p>
- * Some strange example below:
- * <ul>
- * <li>192.168.1.3:20880<br>
- * for this case, url protocol = null, url host = 192.168.1.3, port = 20880, url path = null
- * <li>file:///home/user1/router.js?type=script<br>
- * for this case, url protocol = file, url host = null, url path = home/user1/router.js
- * <li>file://home/user1/router.js?type=script<br>
- * for this case, url protocol = file, url host = home, url path = user1/router.js
- * <li>file:///D:/1/router.js?type=script<br>
- * for this case, url protocol = file, url host = null, url path = D:/1/router.js
- * <li>file:/D:/1/router.js?type=script<br>
- * same as above file:///D:/1/router.js?type=script
- * <li>/home/user1/router.js?type=script <br>
- * for this case, url protocol = null, url host = null, url path = home/user1/router.js
- * <li>home/user1/router.js?type=script <br>
- * for this case, url protocol = null, url host = home, url path = user1/router.js
- * </ul>
+ * 所有配置最终都将转换为 Dubbo URL 表示，并由服务提供方生成，经注册中心传递给消费方，
+ * 各属性对应 URL 的参数，参见配置项一览表中的 “对应URL参数” 列
  *
- * @see java.net.URL
- * @see java.net.URI
+ * 例如：dubbo://192.168.3.17:20880/com.alibaba.dubbo.demo.DemoService?anyhost=true&application=demo-provider&default.delay=-1
+ * &default.retries=0&default.service.filter=demoFilter&delay=-1&dubbo=2.0.0&generic=false&interface=com.alibaba.dubbo.demo.DemoService&methods=sayHello
+ * &pid=19031&side=provider&timestamp=1519651641799
+ *
+ * 格式为 protocol://username:password@host:port/path?key=value&key=value ，通过 URL#buildString(...) 方法生成。
  */
 public /**final**/ class URL implements Serializable {
 
     private static final long serialVersionUID = -1985165475234910535L;
-
+    //协议名
     private final String protocol;
-
+    //用户名
     private final String username;
-
+    //密码
     private final String password;
-
     // by default, host to registry
+    //地址
     private final String host;
-
     // by default, port to registry
+    //端口
     private final int port;
-
+    //路径（服务名）
     private final String path;
-
+    //参数集合
     private final Map<String, String> parameters;
 
     // ==== cache ====
