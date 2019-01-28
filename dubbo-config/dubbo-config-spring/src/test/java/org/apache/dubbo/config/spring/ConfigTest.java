@@ -512,20 +512,23 @@ public class ConfigTest {
 
     @Test
     public void testApiOverrideProperties() throws Exception {
+        //应用配置
         ApplicationConfig application = new ApplicationConfig();
         application.setName("api-override-properties");
-
+        //链接注册中心配置
         RegistryConfig registry = new RegistryConfig();
         registry.setAddress("N/A");
-
+        //服务提供者协议配置
         ProtocolConfig protocol = new ProtocolConfig();
         protocol.setName("dubbo");
         protocol.setPort(13123);
-
+        // 注意：ServiceConfig为重对象，内部封装了与注册中心的连接，以及开启服务端口
+        // 实例很重，封装了与注册中心的连接，请自行缓存，否则可能造成内存和连接泄漏
         ServiceConfig<DemoService> service = new ServiceConfig<DemoService>();
         service.setInterface(DemoService.class);
         service.setRef(new DemoServiceImpl());
         service.setApplication(application);
+        // 多个注册中心可以用setRegistries()
         service.setRegistry(registry);
         service.setProtocol(protocol);
         service.export();

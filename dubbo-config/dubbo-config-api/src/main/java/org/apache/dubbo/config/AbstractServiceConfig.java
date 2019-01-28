@@ -27,6 +27,7 @@ import java.util.List;
  * AbstractServiceConfig
  *
  * @export
+ * 实现 AbstractInterfaceConfig ，抽象服务配置类
  */
 public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
 
