@@ -80,7 +80,8 @@ public class DubboBeanDefinitionParser implements BeanDefinitionParser {
 
     @SuppressWarnings("unchecked")
     /**
-     * 解析 XML 元素
+     * 解析 XML 元素（解析XML的值存到对应的XXXConfig类型对象中，
+     * XXXConfig在DubboNamespaceHandler的init方法可见）
      */
     private static BeanDefinition parse(Element element, ParserContext parserContext, Class<?> beanClass, boolean required) {
         //初始化RootBeanDefinition

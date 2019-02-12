@@ -12,9 +12,14 @@
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"/>-->
     <dubbo:registry address="multicast://224.5.6.7:1234" />
 
-    <!-- 启动的时候去注册中心上面找到生产者在上面注册接口的url值,生成一个远程服务的调用代理，
+    <!--
+    1)启动的时候去注册中心上面找到生产者在上面注册接口的url值,生成一个远程服务的调用代理，
     check默认是true，启动的时候会去检查提供方是否已经启动了，不然会报错，为false的时候不去检查,
-    当服务出现循环依赖的时候，cheack设置为false-->
+    当服务出现循环依赖的时候，cheack设置为false
+    2)timeout默认是1秒 =1000
+    3)属性配置优先级（方法级有限，接口次之，全局配置再次之）
+    4)消费和提供方如果都配置超时时间，消费者配置优先
+    -->
     <dubbo:reference id="demoService" check="false" interface="org.apache.dubbo.demo.DemoService"/>
 
 </beans>

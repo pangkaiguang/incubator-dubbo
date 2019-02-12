@@ -43,7 +43,7 @@ import java.util.Map;
 
 /**
  * ServiceFactoryBean
- *
+ * ApplicationListener<ContextRefreshedEvent>监听容器准备完后回调onApplicationEvent方法
  * @export
  */
 public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean, DisposableBean, ApplicationContextAware, ApplicationListener<ContextRefreshedEvent>, BeanNameAware {
@@ -114,12 +114,16 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
         return service;
     }
 
+
+    //容器刷新完成后会回调此方法
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        //不是延迟，要暴露，但是还没暴露
         if (isDelay() && !isExported() && !isUnexported()) {
             if (logger.isInfoEnabled()) {
                 logger.info("The service ready on spring started. service: " + getInterface());
             }
+            //暴露服务
             export();
         }
     }
@@ -133,6 +137,8 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
         return supportedApplicationListener && (delay == null || delay == -1);
     }
 
+    //解析XML配置Bean完成后调用这个方法
+    //把配置的信息保存到当前应用的ServiceBean里面
     @Override
     @SuppressWarnings({"unchecked", "deprecation"})
     public void afterPropertiesSet() throws Exception {

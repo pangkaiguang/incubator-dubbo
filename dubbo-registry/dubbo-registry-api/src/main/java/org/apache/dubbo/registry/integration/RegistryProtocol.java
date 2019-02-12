@@ -141,6 +141,7 @@ public class RegistryProtocol implements Protocol {
         //to judge to delay publish whether or not
         boolean register = registeredProviderUrl.getParameter("register", true);
 
+        //提供消费者注册表
         ProviderConsumerRegTable.registerProvider(originInvoker, registryUrl, registeredProviderUrl);
 
         if (register) {
